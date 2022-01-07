@@ -80,7 +80,7 @@ func jump():
 
 func throwBomb(pos: Vector2):
 	print (pos)
-	var bomb = load("res://Bomb.tscn").instance() as RigidBody2D
+	var bomb = load("res://scenes/Bomb.tscn").instance() as RigidBody2D
 	bomb.apply_central_impulse(Vector2(0, 0))
 	bomb.position = pos
 	get_parent().add_child(bomb)

@@ -9,17 +9,36 @@ var toExplode = false
 func _ready():
 	add_to_group("explosive")
 	$Timer.start()
+	input_pickable = true
+	connect("mouse_entered", self, "mouse_entered_hovering")
+	connect("mouse_exited", self, "mouse_exited_hovering")
 
 func _physics_process(delta):
 	if toExplode:
 		explode()
-		queue_free()
 
 func _on_Timer_timeout():
-	print("bomb timeout")
+	#print("bomb timeout")
 	toExplode = true
 
+
+func mouse_entered_hovering():
+	print("entered")
+	get_parent().get_node("Player").mouse_hover.append(self)
+
+func mouse_exited_hovering():
+	get_parent().get_node("Player").mouse_hover.erase(self)
+	
+func click():
+	explode()
+
+
 func explode():
+	explosion()
+	mouse_exited_hovering()
+	queue_free()
+
+func explosion():
 	for body in $Area2D.get_overlapping_bodies():
 		if body == self:
 			continue
@@ -36,10 +55,11 @@ func explode():
 			var force = power * (mag / (2 * explosion_radius) - 1)
 			var prevVel = body.velocity
 			body.velocity += - force * vec / mag
-			print(vec, " ", mag, " ", force, " ", - force * vec / mag, " ", prevVel, " ", body.velocity)
-	var ring = load("res://scenes/circle.tscn").instance() as MeshInstance2D
+			#print(vec, " ", mag, " ", force, " ", - force * vec / mag, " ", prevVel, " ", body.velocity)
+	var ring = load("res://scenes/Circle.tscn").instance() as MeshInstance2D
 	ring.position = position
 	ring.scale.x = explosion_radius
 	ring.scale.y = explosion_radius
 	get_parent().add_child(ring)
 			
+

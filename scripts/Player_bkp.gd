@@ -1,20 +1,14 @@
-extends RigidBody2D
+extends KinematicBody2D
 
 # the JumpTimer is not in use. It was planned for aa jumping mechanic like
 # in the original super mario bros, where the longer you jump, the higher
 # you go
 
-var speed = 50
-var acceleration = 120
-var air_acceleration = acceleration / 4.0
+var speed = 96.0
 var gravity = 9.8
 var jump_speed = 192
 var throwing_force = 4
-var recoil_force = 16
-
-var torque_rate = 120
-var max_mouse_distance = 64
-
+var recoil_ratio = 2
 
 var velocity = Vector2(0, 0)
 var is_jumping = false
@@ -28,21 +22,51 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
+	var x = velocity.x
 	
-	if Input.is_action_pressed("ui_right"):
-		var impulse = Vector2(min(speed, delta * speed * (acceleration if is_on_floor() else air_acceleration)), 0)
-		apply_central_impulse(impulse)
-	elif Input.is_action_pressed("ui_left"):
-		var impulse = Vector2(max(- speed, - delta * speed * (acceleration if is_on_floor() else air_acceleration)), 0)
-		apply_central_impulse(impulse)
 
-
-func _process(delta):
-	# rotate gun
-	var mouse_pos = get_local_mouse_position()
-	var angle = rad2deg(atan2(mouse_pos.y, mouse_pos.x)) #+ rotation_degrees
-	$GunSprite.rotation_degrees = angle
 	
+	if is_on_floor():
+		if Input.is_action_pressed("ui_right"):
+			if x < speed:
+				x = speed
+		elif Input.is_action_pressed("ui_left"):
+			if x > -speed:
+				x = -speed
+		else:
+			if x > 0:
+				x -= speed * delta * gravity
+				if x < 0:
+					x = 0
+			elif x < 0:
+				x += speed * delta * gravity
+				if x > 0:
+					x = 0
+		
+		
+		if Input.is_action_just_pressed("ui_up"):
+			is_jumping = true
+			velocity.y = -jump_speed
+			$JumpTimer.start()
+		else:
+			pass #velocity.y = 0
+	else:
+		velocity.y += speed * delta * gravity
+		if Input.is_action_just_released("ui_up"):
+			pass
+		elif is_jumping:
+			if $JumpTimer.time_left:
+				pass
+	# TODO: jumping
+				
+		#velocity.y += gravity
+	
+	#velocity.x = clamp(x, -speed, speed)
+	velocity.x = x
+	move_and_slide(velocity, Vector2.UP)
+	
+	if is_on_floor():
+		velocity.y = 0
 
 
 func _input(event):
@@ -54,11 +78,12 @@ func _input(event):
 			var global = get_global_mouse_position()
 			
 			# check if clicked on a bomb
-			#print(mouse_hover)
-			#print(local, global, global-position)
+			print(mouse_hover)
+			print(local, global)
 			
 			if mouse_hover.empty():
-				throwBomb(global - position)
+				throwBomb(local)
+				velocity -= local * throwing_force / recoil_ratio
 			else:
 				for obj in mouse_hover:
 					obj.click()
@@ -81,16 +106,10 @@ func dropBomb(pos: Vector2):
 	get_parent().add_child(bomb)
 
 func throwBomb(vector: Vector2):
-	var norm = vector.normalized()
-	var mag = min(vector.length(), max_mouse_distance)
-	
 	var bomb = load("res://scenes/Bomb.tscn").instance() as RigidBody2D
-	bomb.apply_central_impulse(throwing_force * norm * mag)
+	bomb.apply_central_impulse(throwing_force * vector)
 	bomb.position = position
 	get_parent().add_child(bomb)
-	
-	apply_central_impulse(- recoil_force * norm * mag)
 	pass
 
-func is_on_floor():
-	return test_motion(Vector2.DOWN)
+

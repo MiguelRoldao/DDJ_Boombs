@@ -1,7 +1,7 @@
 extends RigidBody2D
 
 var explosion_radius = 32.0
-var power = 400.0
+var power = 200.0
 var time = 3.0
 
 var toExplode = false
@@ -30,7 +30,7 @@ func mouse_exited_hovering():
 	get_parent().get_node("Player").mouse_hover.erase(self)
 	
 func click():
-	explode()
+	toExplode = true
 
 
 func explode():
@@ -43,7 +43,14 @@ func explosion():
 		if body == self:
 			continue
 		elif body.is_in_group("explosive"):
-			body.toExplode = true
+			#body.toExplode = true
+			body.get_node("Timer").wait_time = min(body.get_node("Timer").time_left, 0.1)
+			body.get_node("Timer").start()
+		elif body.is_in_group("player"):
+			var vec = (body.position - self.position) as Vector2
+			var mag = vec.length()
+			var force = power * (mag / (2 * explosion_radius) - 1) * body.mass
+			(body as RigidBody2D).apply_central_impulse(- force * vec / mag)
 		elif body is RigidBody2D:
 			var vec = (body.position - self.position) as Vector2
 			var mag = vec.length()

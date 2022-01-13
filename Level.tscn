@@ -7,6 +7,26 @@
 
 [node name="Level" type="Node2D"]
 
+[node name="Floors" type="Node" parent="."]
+
+[node name="Floor" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 63, 116 )
+
+[node name="Floor6" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 334, 104 )
+
+[node name="Floor2" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 6, 81 )
+
+[node name="Floor3" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 122, 124 )
+
+[node name="Floor4" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 184, 131 )
+
+[node name="Floor5" parent="Floors" instance=ExtResource( 2 )]
+position = Vector2( 276, 160 )
+
 [node name="Boxes" type="Node" parent="."]
 
 [node name="Box7" parent="Boxes" instance=ExtResource( 4 )]
@@ -38,21 +58,6 @@ position = Vector2( 153, 2 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 position = Vector2( 64, 51 )
-
-[node name="Floor" parent="." instance=ExtResource( 2 )]
-position = Vector2( 63, 116 )
-
-[node name="Floor2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 6, 81 )
-
-[node name="Floor3" parent="." instance=ExtResource( 2 )]
-position = Vector2( 122, 124 )
-
-[node name="Floor4" parent="." instance=ExtResource( 2 )]
-position = Vector2( 184, 131 )
-
-[node name="Floor5" parent="." instance=ExtResource( 2 )]
-position = Vector2( 276, 160 )
 
 [node name="Bomb" parent="." instance=ExtResource( 3 )]
 position = Vector2( 70, 31 )

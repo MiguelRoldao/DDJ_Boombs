@@ -32,3 +32,7 @@ To test the current state of the game, play the scene World1
 **Credits**
 1. Tilesets:
 * https://killspika.itch.io/8x8-tileset-free
+2. Blob:
+* https://www.kenney.nl (Edited by BornCG)
+3. Zombie and Robot enemies
+* https://www.kenney.nl/assets/toon-characters-1

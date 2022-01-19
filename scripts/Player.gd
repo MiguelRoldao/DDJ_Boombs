@@ -70,9 +70,6 @@ func _input(event):
 	# Print the size of the viewport.
 	#print("Viewport Resolution is: ", get_viewport_rect().size)
 
-func jump():
-	velocity.y = -200
-
 func dropBomb(pos: Vector2):
 	print (pos)
 	var bomb = load("res://scenes/Bomb.tscn").instance() as RigidBody2D
@@ -94,3 +91,7 @@ func throwBomb(vector: Vector2):
 
 func is_on_floor():
 	return test_motion(Vector2.DOWN)
+	
+func bounce():
+	var impulse = Vector2(0, -1500)
+	apply_central_impulse(impulse)

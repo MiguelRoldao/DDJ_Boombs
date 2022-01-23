@@ -38,3 +38,5 @@ To test the current state of the game, play the scene World1
 * https://www.kenney.nl (Edited by BornCG)
 3. Zombie and Robot enemies (to be added)
 * https://www.kenney.nl/assets/toon-characters-1
+4. Health heart
+* https://fliflifly.itch.io/hearts-and-health-bar?download

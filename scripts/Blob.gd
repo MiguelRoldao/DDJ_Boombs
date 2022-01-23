@@ -29,6 +29,25 @@ func _physics_process(delta):
 
 
 func _on_top_checker_body_entered(body):
+	kill_blob(body)
+	body.bounce()
+
+
+func _on_bottom_checker_body_entered(body):
+	LivesCounter.lives -= 1
+	kill_blob(body)
+
+
+func _on_sides_checker_body_entered(body):	
+	LivesCounter.lives -= 1
+	kill_blob(body)
+
+
+func _on_Timer_timeout():
+	queue_free()
+
+
+func kill_blob(body):
 	$AnimatedSprite.play("squashed")
 	speed = 0
 	set_collision_layer_bit(1, false)
@@ -38,18 +57,3 @@ func _on_top_checker_body_entered(body):
 	$sides_checker.set_collision_mask_bit(0, false)
 	$bottom_checker.set_collision_mask_bit(0, false)
 	$Timer.start()
-	body.bounce()
-	
-func _on_bottom_checker_body_entered(body):
-	get_tree().reload_current_scene()
-
-
-func _on_sides_checker_body_entered(body):
-	get_tree().reload_current_scene()
-
-
-func _on_Timer_timeout():
-	queue_free()
-
-
-

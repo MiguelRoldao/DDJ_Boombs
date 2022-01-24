@@ -13,10 +13,10 @@ radius = 32.0
 collision_layer = 2
 collision_mask = 2
 mass = 5.0
+continuous_cd = 2
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
-modulate = Color( 1, 0, 0, 1 )
 scale = Vector2( 0.094, 0.047 )
 texture = ExtResource( 1 )
 

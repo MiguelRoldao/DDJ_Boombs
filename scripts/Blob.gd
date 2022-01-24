@@ -28,18 +28,22 @@ func _physics_process(delta):
 		$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * dir
 
 
-func _on_top_checker_body_entered(body):
+func _on_top_checker_body_entered(body: PhysicsBody2D):
+	# TODO: turn bounce() into an explosion
+	if body.is_in_group("player"):
+		body.bounce()
 	kill_blob(body)
-	body.bounce()
 
 
 func _on_bottom_checker_body_entered(body):
-	LivesCounter.lives -= 1
+	if body.is_in_group("player"):
+		LivesCounter.lives -= 1
 	kill_blob(body)
 
 
-func _on_sides_checker_body_entered(body):	
-	LivesCounter.lives -= 1
+func _on_sides_checker_body_entered(body):
+	if body.is_in_group("player"):
+		LivesCounter.lives -= 1
 	kill_blob(body)
 
 

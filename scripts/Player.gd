@@ -1,8 +1,5 @@
 extends RigidBody2D
 
-# the JumpTimer is not in use. It was planned for aa jumping mechanic like
-# in the original super mario bros, where the longer you jump, the higher
-# you go
 
 var speed = 50
 var acceleration = 120
@@ -21,9 +18,17 @@ var is_jumping = false
 var mouse_hover = []
 
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
+var left_bomb_color = Color.red
+var right_bomb_color = Color.green
+
+var left_click = false
+var right_click = false
+
+var left_bomb = false
+var right_bomb = false
+
+var double_gun = true
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -44,7 +49,6 @@ func _process(delta):
 	$GunSprite.rotation_degrees = angle
 	
 
-
 func _input(event):
 	# Mouse in viewport coordinates.
 	if event is InputEventMouseButton:
@@ -53,22 +57,30 @@ func _input(event):
 			var local = get_local_mouse_position()
 			var global = get_global_mouse_position()
 			
-			# check if clicked on a bomb
-			#print(mouse_hover)
-			#print(local, global, global-position)
-			
-			if mouse_hover.empty():
-				throwBomb(global - position)
+			if double_gun:
+				if event.button_index == BUTTON_LEFT:
+					if $LeftBombTimer.is_stopped():
+						left_bomb = throwBomb(global - position, left_bomb_color)
+						$LeftBombTimer.start()
+					else:
+						if is_instance_valid(left_bomb):
+							left_bomb.click()
+							left_bomb = null
+				if event.button_index == BUTTON_RIGHT:
+					if $RightBombTimer.is_stopped():
+						right_bomb = throwBomb(global - position, right_bomb_color)
+						$RightBombTimer.start()
+					else:
+						if is_instance_valid(right_bomb):
+							right_bomb.click()
+							right_bomb = null
 			else:
-				for obj in mouse_hover:
-					obj.click()
-				
-	elif event is InputEventMouseMotion:
-		#print("Mouse Motion at: ", event.position)
-		pass
+				if mouse_hover.empty():
+					throwBomb(global - position, Color.red)
+				else:
+					for obj in mouse_hover:
+						obj.click()
 
-	# Print the size of the viewport.
-	#print("Viewport Resolution is: ", get_viewport_rect().size)
 
 func dropBomb(pos: Vector2):
 	print (pos)
@@ -77,21 +89,32 @@ func dropBomb(pos: Vector2):
 	bomb.position = pos
 	get_parent().add_child(bomb)
 
-func throwBomb(vector: Vector2):
+
+func throwBomb(vector: Vector2, color: Color):
 	var norm = vector.normalized()
 	var mag = min(vector.length(), max_mouse_distance)
 	
+	# create bomb and apply impulse
 	var bomb = load("res://scenes/Bomb.tscn").instance() as RigidBody2D
 	bomb.apply_central_impulse(throwing_force * norm * mag)
 	bomb.position = position
 	get_parent().add_child(bomb)
+	bomb.modulate = color
 	
+	# apply recoil to player
 	apply_central_impulse(- recoil_force * norm * mag)
-	pass
+	
+	return bomb
+
 
 func is_on_floor():
 	return test_motion(Vector2.DOWN)
-	
+
+
+func die():
+	get_tree().change_scene("res://scenes/World1.tscn")
+
+
 func bounce():
 	var impulse = Vector2(0, -1500)
 	apply_central_impulse(impulse)

@@ -46,6 +46,13 @@ func explosion():
 			#body.toExplode = true
 			body.get_node("Timer").wait_time = min(body.get_node("Timer").time_left, 0.1)
 			body.get_node("Timer").start()
+		elif body.is_in_group("explosion_action"):
+			var ret = body.on_activate()
+			if ret is RigidBody2D:
+				var vec = (ret.position - self.position) as Vector2
+				var mag = vec.length()
+				var force = power * (mag / (2 * explosion_radius) - 1)
+				(ret as RigidBody2D).apply_central_impulse(- force * vec / mag)
 		elif body.is_in_group("player"):
 			var vec = (body.position - self.position) as Vector2
 			var mag = vec.length()

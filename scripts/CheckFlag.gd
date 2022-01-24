@@ -4,11 +4,18 @@ extends Area2D
 var checked = false
 
 
+func _ready():
+	if Checkpoint.checkpoint == name:
+		checked = true
+
 func uncheck():
 	$SpriteCloth.visible = false
 
 
 func check():
+	Checkpoint.level = get_tree().current_scene.filename
+	Checkpoint.checkpoint = name
+	print(Checkpoint.level + " " + Checkpoint.checkpoint)
 	$SpriteCloth.visible = true
 
 

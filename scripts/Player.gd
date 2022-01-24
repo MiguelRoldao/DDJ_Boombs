@@ -118,3 +118,17 @@ func die():
 func bounce():
 	var impulse = Vector2(0, -1500)
 	apply_central_impulse(impulse)
+
+func gothit(var enemyposx):
+	modulate = Color(1,0.3,0.3,0.3)
+	$GotHitTimer.start()
+	var impulse = Vector2(0, 0)
+	if position.x < enemyposx:
+		impulse = Vector2(-1000, -1000)
+	elif position.x > enemyposx:
+		impulse = Vector2(1000, -1000)
+	apply_central_impulse(impulse)
+
+
+func _on_GotHitTimer_timeout():
+	modulate = Color(1,1,1,1)

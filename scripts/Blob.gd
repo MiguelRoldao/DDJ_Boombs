@@ -32,26 +32,26 @@ func _on_top_checker_body_entered(body: PhysicsBody2D):
 	# TODO: turn bounce() into an explosion
 	if body.is_in_group("player"):
 		body.bounce()
-	kill_blob(body)
+		deth()
 
 
 func _on_bottom_checker_body_entered(body):
 	if body.is_in_group("player"):
 		LivesCounter.lives -= 1
-	kill_blob(body)
+		body.gothit(position.x)
 
 
 func _on_sides_checker_body_entered(body):
 	if body.is_in_group("player"):
 		LivesCounter.lives -= 1
-	kill_blob(body)
+		body.gothit(position.x)
 
 
 func _on_Timer_timeout():
 	queue_free()
 
 
-func kill_blob(body):
+func deth():
 	$AnimatedSprite.play("squashed")
 	speed = 0
 	set_collision_layer_bit(1, false)

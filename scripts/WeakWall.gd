@@ -8,7 +8,7 @@ func on_activate():
 	var rock = load("res://scenes/obstacles/RoundRock.tscn").instance() as RigidBody2D
 	rock.position = position
 	var torque = rand_range(-max_round_rot, max_round_rot)
-	print(torque)
 	rock.angular_velocity = torque
 	get_parent().add_child(rock)
 	queue_free()
+	return rock

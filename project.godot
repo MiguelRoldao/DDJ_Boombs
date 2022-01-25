@@ -17,6 +17,8 @@ config/icon="res://assets/icon.png"
 [autoload]
 
 LivesCounter="*res://scripts/LivesCounter.gd"
+Checkpoint="*res://scripts/Checkpoint.gd"
+Collectibles="*res://scripts/Collectibles.gd"
 
 [display]
 

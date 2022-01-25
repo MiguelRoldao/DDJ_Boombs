@@ -22,7 +22,7 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_wall() or not $floor_checker.is_colliding() and detects_cliffs and is_on_floor():
-		print ($floor_checker.is_colliding())
+		#print ($floor_checker.is_colliding())
 		dir = dir * -1
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 		$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * dir

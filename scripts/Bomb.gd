@@ -23,12 +23,15 @@ func _on_Timer_timeout():
 
 
 func mouse_entered_hovering():
-	print("entered")
-	get_parent().get_node("Player").mouse_hover.append(self)
+	#get_parent().get_node("Player").mouse_hover.append(self)
+	pass
+
 
 func mouse_exited_hovering():
-	get_parent().get_node("Player").mouse_hover.erase(self)
-	
+	#get_parent().get_node("Player").mouse_hover.erase(self)
+	pass
+
+
 func click():
 	toExplode = true
 

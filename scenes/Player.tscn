@@ -3,6 +3,9 @@
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/body.png" type="Texture" id=2]
 [ext_resource path="res://assets/player/gun.png" type="Texture" id=3]
+[ext_resource path="res://scenes/DoubleGun.tscn" type="PackedScene" id=4]
+
+[sub_resource type="PhysicsMaterial" id=2]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
@@ -34,14 +37,8 @@ process_mode = 0
 [node name="JumpTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="LeftBombTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
-[node name="RightBombTimer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
-
 [node name="GotHitTimer" type="Timer" parent="."]
+
+[node name="Gun" parent="." instance=ExtResource( 4 )]
 
 [connection signal="timeout" from="GotHitTimer" to="." method="_on_GotHitTimer_timeout"]

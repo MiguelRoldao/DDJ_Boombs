@@ -10,7 +10,7 @@ region = Rect2( 24, 0, 8, 8 )
 extents = Vector2( 4, 4 )
 
 [node name="Box" type="RigidBody2D"]
-z_index = -1
+z_index = -3
 continuous_cd = 1
 
 [node name="Sprite" type="Sprite" parent="."]

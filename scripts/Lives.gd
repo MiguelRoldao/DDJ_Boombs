@@ -20,10 +20,18 @@ func change_env(env):
 	var img = Image.new()
 	if env == "grass":
 		img.load("res://assets/tiles/platform_green_auto.png")
+		set_physic_val(1, 1)
 	if env == "ice":
 		img.load("res://assets/tiles/platform_grey_auto.png")
+		set_physic_val(1, 0.01)
 	if env == "space":
 		img.load("res://assets/tiles/platform_orange_auto.png")
+		set_physic_val(0.5, 1)
 	tex.create_from_image(img)
 	get_parent().get_parent().get_node("TileMap").tile_set.tile_set_texture(tile_idx, tex)
+	
+	
+func set_physic_val(gravity, friction):
+	get_parent().get_parent().get_node("Player").set_gravity_scale(gravity)
+	get_parent().get_parent().get_node("Player").set_friction(friction)
 

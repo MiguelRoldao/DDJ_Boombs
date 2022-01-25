@@ -30,12 +30,13 @@ func _physics_process(delta):
 		$vision_Cast.cast_to.y *= -1
 		
 	if $vision_Cast.is_colliding():
-		print ("I see you")
-		$AnimatedSprite.play("running")
-		$Brain.visible = true
-		$Brain.play("exclamation")
-		speed = 50
-		$Run_Timer.start()
+		if $vision_Cast.get_collider().is_in_group("player"):
+			print ("I see you")
+			$AnimatedSprite.play("running")
+			$Brain.visible = true
+			$Brain.play("exclamation")
+			speed = 50
+			$Run_Timer.start()
 		
 
 func _on_Run_Timer_timeout():

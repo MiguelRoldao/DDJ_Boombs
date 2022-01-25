@@ -9,6 +9,7 @@ func _ready():
 	if dir == 1:
 		$AnimatedSprite.flip_h = true
 	$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * dir
+	$vision_Cast.position.x = $CollisionShape2D.shape.get_extents().x * dir
 	$floor_checker.enabled = detects_cliffs
 	if not detects_cliffs:
 		set_modulate(Color(1.5, 0.5, 1))
@@ -22,14 +23,36 @@ func _physics_process(delta):
 	velocity = move_and_slide(velocity, Vector2.UP)
 	
 	if is_on_wall() or not $floor_checker.is_colliding() and detects_cliffs and is_on_floor():
-		print ($floor_checker.is_colliding())
 		dir = dir * -1
 		$AnimatedSprite.flip_h = not $AnimatedSprite.flip_h
 		$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * dir
+		$vision_Cast.position.x = $CollisionShape2D.shape.get_extents().x * dir
+		$vision_Cast.cast_to.y *= -1
+		
+	if $vision_Cast.is_colliding():
+		print ("I see you")
+		$AnimatedSprite.play("running")
+		$Brain.visible = true
+		$Brain.play("exclamation")
+		speed = 50
+		$Run_Timer.start()
+		
 
+func _on_Run_Timer_timeout():
+	print("Where dafq did he go?")
+	$AnimatedSprite.play("thinking")
+	$Brain.play("question")
+	speed = 0
+	$Brain_Timer.start()
+	$vision_Cast.enabled = true
+	
+func _on_Brain_Timer_timeout():
+	print("Fuck it, I'mma walk")
+	$AnimatedSprite.play("walking")
+	speed = 30
+	$Brain.visible = false
 
-func _on_top_checker_body_entered(body: PhysicsBody2D):
-	# TODO: turn bounce() into an explosion
+func _on_top_checker_body_entered(body):
 	if body.is_in_group("player"):
 		body.bounce()
 		deth()
@@ -47,12 +70,13 @@ func _on_sides_checker_body_entered(body):
 		body.gothit(position.x)
 
 
-func _on_Timer_timeout():
+func _on_Death_Timer_timeout():
 	queue_free()
 
 
 func deth():
-	$AnimatedSprite.play("squashed")
+	$Brain.visible = false
+	$AnimatedSprite.play("dead")
 	speed = 0
 	set_collision_layer_bit(1, false)
 	set_collision_mask_bit(0, false)
@@ -60,4 +84,5 @@ func deth():
 	$top_checker.set_collision_mask_bit(0, false)
 	$sides_checker.set_collision_mask_bit(0, false)
 	$bottom_checker.set_collision_mask_bit(0, false)
+	$vision_Cast.enabled = false
 	$Death_Timer.start()

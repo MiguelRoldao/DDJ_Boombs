@@ -10,7 +10,7 @@ extents = Vector2( 4, 2 )
 radius = 32.0
 
 [node name="Bomb" type="RigidBody2D" groups=["explosive"]]
-collision_layer = 2
+collision_layer = 8
 collision_mask = 2
 mass = 5.0
 continuous_cd = 2

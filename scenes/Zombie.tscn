@@ -25,11 +25,6 @@ animations = [ {
 "name": "dead",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 14 ) ],
-"loop": true,
-"name": "thinking",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 1 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 10 ), ExtResource( 8 ), ExtResource( 9 ) ],
 "loop": true,
 "name": "walking",
@@ -38,6 +33,11 @@ animations = [ {
 "frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 13 ) ],
 "loop": true,
 "name": "running",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 14 ) ],
+"loop": true,
+"name": "thinking",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 12 ) ],
@@ -81,7 +81,7 @@ script = ExtResource( 15 )
 position = Vector2( 0, -20 )
 frames = SubResource( 2 )
 animation = "walking"
-frame = 7
+frame = 5
 playing = true
 flip_h = true
 

@@ -53,7 +53,6 @@ func _input(event):
 			var retvals = $Gun.trigger(event)
 			apply_central_impulse(retvals.recoil)
 			if is_instance_valid(retvals.bomb):
-				print("add child bomb")
 				get_parent().add_child(retvals.bomb)
 
 

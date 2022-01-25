@@ -37,13 +37,11 @@ func _on_top_checker_body_entered(body: PhysicsBody2D):
 
 func _on_bottom_checker_body_entered(body):
 	if body.is_in_group("player"):
-		LivesCounter.lives -= 1
 		body.gothit(position.x)
 
 
 func _on_sides_checker_body_entered(body):
 	if body.is_in_group("player"):
-		LivesCounter.lives -= 1
 		body.gothit(position.x)
 
 

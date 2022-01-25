@@ -97,6 +97,9 @@ func gothit(var enemyposx):
 	elif position.x > enemyposx:
 		impulse = Vector2(1000, -1000)
 	apply_central_impulse(impulse)
+	LivesCounter.dec()
+	if LivesCounter.lives <= 0:
+		die()
 
 
 func _on_GotHitTimer_timeout():

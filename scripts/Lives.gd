@@ -1,20 +1,39 @@
 extends Node2D
 
 
+
+
+
 func _ready():
 	if LivesCounter.lives == 3:
 		change_env("grass")
 	if LivesCounter.lives == 2:
-		$Live1.hide()
 		change_env("ice")
 	if LivesCounter.lives == 1:
-		$Live1.hide()
-		$Live2.hide()
 		change_env("space")
-	if LivesCounter.lives == 0:
+	if LivesCounter.lives <= 0:
 		LivesCounter.lives = 3
 		get_tree().reload_current_scene()
 		change_env("grass")
+		
+
+func _process(delta):
+	if LivesCounter.lives >= 3:
+		$Live1.visible = true
+		$Live2.visible = true
+		$Live3.visible = true
+	if LivesCounter.lives == 2:
+		$Live1.visible = false
+		$Live2.visible = true
+		$Live3.visible = true
+	if LivesCounter.lives == 1:
+		$Live1.visible = false
+		$Live2.visible = false
+		$Live3.visible = true
+	if LivesCounter.lives <= 0:
+		$Live1.visible = false
+		$Live2.visible = false
+		$Live3.visible = false
 
 func change_env(env):
 	var tile_idx = 2

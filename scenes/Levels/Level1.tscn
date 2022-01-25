@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=2]
+[gd_scene load_steps=43 format=2]
 
 [ext_resource path="res://assets/tiles/Tileset.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://scenes/Obstacles/Box.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/Blob.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Lives.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scripts/Lives.gd" type="Script" id=7]
 [ext_resource path="res://scenes/Obstacles/CheckFlag.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/Obstacles/WeakWall.tscn" type="PackedScene" id=9]
 [ext_resource path="res://scenes/Obstacles/Spikes.tscn" type="PackedScene" id=10]
@@ -318,7 +317,6 @@ points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Lives" parent="CanvasLayer" instance=ExtResource( 6 )]
-script = ExtResource( 7 )
 
 [node name="TileMap" type="TileMap" parent="."]
 z_index = -2

@@ -14,7 +14,6 @@ var double_gun = true
 
 var dead = false
 
-
 func _ready():
 	if Checkpoint.use_coordinates:
 		position = Checkpoint.coordinates

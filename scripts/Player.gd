@@ -10,12 +10,9 @@ var recoil_force = 16
 var torque_rate = 120
 var max_mouse_distance = 64
 
-
 var double_gun = true
 
-
 var dead = false
-
 
 func _ready():
 	if Checkpoint.use_coordinates:
@@ -88,18 +85,20 @@ func bounce():
 
 
 func gothit(var enemyposx):
-	modulate = Color(1,0.3,0.3,0.3)
-	$GotHitTimer.start()
-	var impulse = Vector2(0, 0)
-	if position.x < enemyposx:
-		impulse = Vector2(-1000, -1000)
-	elif position.x > enemyposx:
-		impulse = Vector2(1000, -1000)
-	apply_central_impulse(impulse)
-	LivesCounter.dec()
-	if LivesCounter.lives <= 0:
-		die()
-
+	if not $GotHitTimer.time_left > 0:
+		modulate = Color(1,0.3,0.3,0.3)
+		$GotHitTimer.start()
+		var impulse = Vector2(0, 0)
+		if position.x < enemyposx:
+			impulse = Vector2(-1500, -800)
+		elif position.x > enemyposx:
+			impulse = Vector2(1500, -800)
+		apply_central_impulse(impulse)
+		LivesCounter.dec()
+		if LivesCounter.lives <= 0:
+			die()
+	else:
+		pass
 
 func _on_GotHitTimer_timeout():
 	modulate = Color(1,1,1,1)

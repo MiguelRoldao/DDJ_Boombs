@@ -1,8 +1,7 @@
-extends Node2D
+extends CanvasLayer
 
 
-
-
+var visible = true
 
 func _ready():
 	if LivesCounter.lives == 3:
@@ -14,10 +13,11 @@ func _ready():
 	if LivesCounter.lives <= 0:
 		LivesCounter.lives = 3
 		get_tree().reload_current_scene()
-		change_env("grass")
 		
 
 func _process(delta):
+	if not visible:
+		return
 	if LivesCounter.lives >= 3:
 		$Live1.visible = true
 		$Live2.visible = true
@@ -59,3 +59,12 @@ func set_physic_val(gravity, friction):
 	get_parent().get_parent().get_node("Player").set_gravity_scale(gravity)
 	get_parent().get_parent().get_node("Player").set_friction(friction)
 
+
+func hide_ui():
+	visible = false
+	$Live1.visible = false
+	$Live2.visible = false
+	$Live3.visible = false
+
+func show_ui():
+	visible = true

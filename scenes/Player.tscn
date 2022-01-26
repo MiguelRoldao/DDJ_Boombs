@@ -1,14 +1,47 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/player/body.png" type="Texture" id=2]
 [ext_resource path="res://assets/player/gun.png" type="Texture" id=3]
 [ext_resource path="res://scenes/DoubleGun.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/Lives.tscn" type="PackedScene" id=5]
+[ext_resource path="res://assets/objects/screw_border.png" type="Texture" id=6]
+[ext_resource path="res://assets/MinecraftRegular-Bmg3.otf" type="DynamicFontData" id=7]
 
 [sub_resource type="PhysicsMaterial" id=2]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 6.0
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 8, 9 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 6 )
+region = Rect2( 8, 0, 8, 9 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 6 )
+region = Rect2( 16, 0, 8, 9 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 6 )
+region = Rect2( 24, 0, 8, 9 )
+
+[sub_resource type="SpriteFrames" id=8]
+animations = [ {
+"frames": [ SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ) ],
+"loop": true,
+"name": "default",
+"speed": 3.0
+} ]
+
+[sub_resource type="DynamicFont" id=3]
+size = 10
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 7 )
 
 [node name="Player" type="RigidBody2D" groups=["player"]]
 mass = 10.0
@@ -36,7 +69,31 @@ process_mode = 0
 one_shot = true
 
 [node name="GotHitTimer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
 
 [node name="Gun" parent="." instance=ExtResource( 4 )]
+
+[node name="Lives" parent="." instance=ExtResource( 5 )]
+
+[node name="CollectiblesUI" type="CanvasLayer" parent="."]
+
+[node name="Sprite" type="AnimatedSprite" parent="CollectiblesUI"]
+position = Vector2( 12, 8 )
+frames = SubResource( 8 )
+frame = 3
+playing = true
+
+[node name="Label" type="Label" parent="CollectiblesUI"]
+margin_left = 20.0
+margin_top = 3.0
+margin_right = 60.0
+margin_bottom = 17.0
+custom_colors/font_color = Color( 0.780392, 0.831373, 0.882353, 1 )
+custom_fonts/font = SubResource( 3 )
+text = "x 000"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [connection signal="timeout" from="GotHitTimer" to="." method="_on_GotHitTimer_timeout"]

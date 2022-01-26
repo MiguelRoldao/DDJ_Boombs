@@ -9,6 +9,7 @@ extents = Vector2( 3, 2 )
 
 [node name="Button" type="StaticBody2D" groups=["explosion_action"]]
 collision_layer = 32
+collision_mask = 9
 script = ExtResource( 3 )
 
 [node name="SpriteHolder" type="Sprite" parent="."]

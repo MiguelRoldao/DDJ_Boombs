@@ -43,4 +43,5 @@ func resize():
 
 
 func _set_state(state):
+	print(state, self.state)
 	self.state = state

@@ -12,6 +12,14 @@ var left_bomb = false
 var right_bomb = false
 
 
+
+func _process(delta):
+	var left_timer = $LeftBombTimer
+	var right_timer = $RightBombTimer
+	$UI/LeftProgressBar.set_as_ratio(1.0 - left_timer.time_left / left_timer.wait_time)
+	$UI/RightProgressBar.set_as_ratio(1.0 - right_timer.time_left / right_timer.wait_time)
+
+
 # fires gun based on clicked button
 # returs recoil force, and bomb to add to the environment
 func trigger(event: InputEventMouseButton):
@@ -60,3 +68,13 @@ func shootBomb(vector: Vector2, color: Color):
 	}
 	
 	return retvals
+
+
+func hide_ui():
+	$UI/LeftProgressBar.visible = false
+	$UI/RightProgressBar.visible = false
+
+
+func show_ui():
+	$UI/LeftProgressBar.visible = true
+	$UI/RightProgressBar.visible = true

@@ -10,9 +10,7 @@ var recoil_force = 16
 var torque_rate = 120
 var max_mouse_distance = 64
 
-
 var double_gun = true
-
 
 var dead = false
 
@@ -23,6 +21,8 @@ func _ready():
 		Checkpoint.use_coordinates = false
 	else:
 		go_to_checkpoint()
+	update_collectibles()
+
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
@@ -33,6 +33,9 @@ func _physics_process(delta):
 	elif Input.is_action_pressed("ui_left"):
 		var impulse = Vector2(max(- speed, - delta * speed * (acceleration if is_on_floor() else air_acceleration)), 0)
 		apply_central_impulse(impulse)
+	
+	if position.y > 1000:
+		die()
 
 
 func _process(delta):
@@ -88,17 +91,39 @@ func bounce():
 
 
 func gothit(var enemyposx):
-	modulate = Color(1,0.3,0.3,0.3)
-	$GotHitTimer.start()
-	var impulse = Vector2(0, 0)
-	if position.x < enemyposx:
-		impulse = Vector2(-1000, -1000)
-	elif position.x > enemyposx:
-		impulse = Vector2(1000, -1000)
-	apply_central_impulse(impulse)
-	LivesCounter.dec()
-	if LivesCounter.lives <= 0:
-		die()
+	if not $GotHitTimer.time_left > 0:
+		modulate = Color(1,0.3,0.3,0.3)
+		$GotHitTimer.start()
+		var impulse = Vector2(0, 0)
+		if position.x < enemyposx:
+			impulse = Vector2(-1500, -800)
+		elif position.x > enemyposx:
+			impulse = Vector2(1500, -800)
+		apply_central_impulse(impulse)
+		LivesCounter.dec()
+		if LivesCounter.lives <= 0:
+			die()
+	else:
+		pass
+
+
+func update_collectibles():
+	var n_str = "x %03d" % Collectibles.found
+	$CollectiblesUI/Label.text = n_str
+
+
+func hide_ui():
+	$Lives.hide_ui()
+	$Gun.hide_ui()
+	$CollectiblesUI/Sprite.visible = false
+	$CollectiblesUI/Label.visible = false
+
+
+func show_ui():
+	$Lives.show_ui()
+	$Gun.show_ui()
+	$CollectiblesUI/Sprite.visible = true
+	$CollectiblesUI/Label.visible = true
 
 
 func _on_GotHitTimer_timeout():

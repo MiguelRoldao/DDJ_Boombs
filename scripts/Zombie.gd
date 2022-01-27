@@ -7,7 +7,8 @@ export var detects_cliffs = true
 
 func _ready():
 	if dir == 1:
-		$AnimatedSprite.flip_h = true
+		$AnimatedSprite.flip_h = false
+		$vision_Cast.cast_to.y *= -1
 	$floor_checker.position.x = $CollisionShape2D.shape.get_extents().x * dir
 	$vision_Cast.position.x = $CollisionShape2D.shape.get_extents().x * dir
 	$floor_checker.enabled = detects_cliffs

@@ -15,8 +15,8 @@
 [ext_resource path="res://assets/enemies/character_zombie_run2.png" type="Texture" id=13]
 [ext_resource path="res://assets/enemies/character_zombie_think.png" type="Texture" id=14]
 [ext_resource path="res://scripts/Zombie.gd" type="Script" id=15]
-[ext_resource path="res://assets/question.png" type="Texture" id=16]
-[ext_resource path="res://assets/exclamation.png" type="Texture" id=17]
+[ext_resource path="res://assets/emote_question.png" type="Texture" id=16]
+[ext_resource path="res://assets/emote_exclamation.png" type="Texture" id=17]
 
 [sub_resource type="SpriteFrames" id=2]
 animations = [ {
@@ -30,6 +30,11 @@ animations = [ {
 "name": "walking",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "running",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 12 ) ],
 "loop": true,
 "name": "falling",
@@ -38,11 +43,6 @@ animations = [ {
 "frames": [ ExtResource( 14 ) ],
 "loop": true,
 "name": "thinking",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ), ExtResource( 5 ), ExtResource( 13 ) ],
-"loop": true,
-"name": "running",
 "speed": 5.0
 } ]
 
@@ -60,14 +60,14 @@ extents = Vector2( 32.5, 40 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
-"frames": [ ExtResource( 16 ) ],
-"loop": true,
-"name": "question",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 17 ) ],
 "loop": true,
 "name": "exclamation",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 16 ) ],
+"loop": true,
+"name": "question",
 "speed": 5.0
 } ]
 
@@ -81,7 +81,7 @@ script = ExtResource( 15 )
 position = Vector2( 0, -20 )
 frames = SubResource( 2 )
 animation = "walking"
-frame = 7
+frame = 6
 playing = true
 flip_h = true
 
@@ -129,10 +129,10 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Brain" type="AnimatedSprite" parent="."]
-visible = false
 position = Vector2( 0, -80 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 6 )
-animation = "question"
+animation = "exclamation"
 
 [node name="Brain_Timer" type="Timer" parent="."]
 wait_time = 2.0

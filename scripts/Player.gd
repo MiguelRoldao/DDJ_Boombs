@@ -87,6 +87,10 @@ func go_to_checkpoint():
 func bounce():
 	var impulse = Vector2(0, -1500)
 	apply_central_impulse(impulse)
+	
+func bounce_alt():
+	var impulse = Vector2(0, -3000)
+	apply_central_impulse(impulse)
 
 
 func gothit(var enemyposx):

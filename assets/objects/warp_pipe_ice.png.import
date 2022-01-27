@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/exclamation.png-3749eafcbb89ded6deb8d5315c6d50f8.stex"
+path="res://.import/warp_pipe_ice.png-8378c41d89c869e5fc46e647aea456f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/exclamation.png"
-dest_files=[ "res://.import/exclamation.png-3749eafcbb89ded6deb8d5315c6d50f8.stex" ]
+source_file="res://assets/objects/warp_pipe_ice.png"
+dest_files=[ "res://.import/warp_pipe_ice.png-8378c41d89c869e5fc46e647aea456f4.stex" ]
 
 [params]
 

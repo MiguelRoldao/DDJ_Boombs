@@ -10,7 +10,7 @@ func _ready():
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
-		get_tree().change_scene("res://scenes/Levels/Level1.tscn")
+		get_tree().change_scene("res://scenes/Levels/lvl1.tscn")
 
 
 func _on_TimerStart_timeout():

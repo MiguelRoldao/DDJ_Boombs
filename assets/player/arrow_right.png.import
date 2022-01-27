@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/exclamation.png-3749eafcbb89ded6deb8d5315c6d50f8.stex"
+path="res://.import/arrow_right.png-f0bd9c97f87bf434f243d53cf5b19d1b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/exclamation.png"
-dest_files=[ "res://.import/exclamation.png-3749eafcbb89ded6deb8d5315c6d50f8.stex" ]
+source_file="res://assets/player/arrow_right.png"
+dest_files=[ "res://.import/arrow_right.png-f0bd9c97f87bf434f243d53cf5b19d1b.stex" ]
 
 [params]
 

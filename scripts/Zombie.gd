@@ -13,7 +13,9 @@ func _ready():
 	$vision_Cast.position.x = $CollisionShape2D.shape.get_extents().x * dir
 	$floor_checker.enabled = detects_cliffs
 	if not detects_cliffs:
-		set_modulate(Color(1.5, 0.5, 1))
+		$AnimatedSprite.set_modulate(Color(1.5, 0.5, 1))
+	$Brain.visible = false
+
 	
 func _physics_process(delta):
 	

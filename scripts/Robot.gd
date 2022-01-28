@@ -90,6 +90,9 @@ func _on_sides_checker_body_entered(body):
 
 
 func _on_Death_Timer_timeout():
+	var kwr = get_parent().get_node("KillWithRobot")
+	if kwr != null:
+		kwr.queue_free()
 	queue_free()
 
 func deth():

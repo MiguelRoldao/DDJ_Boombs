@@ -15,12 +15,14 @@ var double_gun = true
 var dead = false
 
 func _ready():
+	
 	if Checkpoint.use_coordinates:
 		position = Checkpoint.coordinates
 		Checkpoint.use_coordinates = false
 	else:
 		go_to_checkpoint()
 	update_collectibles()
+	print("entering " + get_tree().current_scene.filename + " ", position)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

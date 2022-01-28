@@ -16,6 +16,8 @@ region = Rect2( 12, 0, 4, 16 )
 
 [node name="Warp" type="Area2D"]
 script = ExtResource( 1 )
+level = "res://scenes/Levels/Title.tscn"
+target = Vector2( 125, 81 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2( -5, 0 )

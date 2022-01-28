@@ -1,17 +1,24 @@
 extends Node2D
 
-var state = false
+export(bool) var state = false
 
 var color_true = "3fed6f"
 var color_false = "ed4f3f"
 
 signal button_pressed(state)
 
+
+func _ready():
+	$SpriteIndicator.modulate = Color(color_true if state else color_false)
+	emit_signal("button_pressed", state)
+
+
 func on_activate():
 	state = not state
 	$SpriteIndicator.modulate = Color(color_true if state else color_false)
 	emit_signal("button_pressed", state)
-	
+
+
 func change_env():
 	# in this specific case, the platform auto tile index is 2
 	var tile_idx = 2

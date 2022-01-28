@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=2]
+[gd_scene load_steps=41 format=2]
 
 [ext_resource path="res://assets/tiles/Tileset.png" type="Texture" id=1]
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://assets/MinecraftRegular-Bmg3.otf" type="DynamicFontData" id=6]
 [ext_resource path="res://assets/player/mouse.png" type="Texture" id=7]
 [ext_resource path="res://scenes/Obstacles/CheckFlag.tscn" type="PackedScene" id=8]
-[ext_resource path="res://scenes/Levels/lvl2.tscn" type="PackedScene" id=9]
 [ext_resource path="res://assets/player/arrow_left.png" type="Texture" id=13]
 [ext_resource path="res://scenes/Obstacles/Screw.tscn" type="PackedScene" id=14]
 [ext_resource path="res://scenes/Warp.tscn" type="PackedScene" id=15]
@@ -432,7 +431,7 @@ position = Vector2( 928, 144 )
 [node name="Warp" parent="." instance=ExtResource( 15 )]
 position = Vector2( 800, 168 )
 rotation = -1.5708
-level = ExtResource( 9 )
+level = "res://scenes/Levels/lvl2.tscn"
 target = Vector2( 0, -50 )
 
 [node name="Node2D" type="Node2D" parent="."]
